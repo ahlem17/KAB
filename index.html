@@ -1,988 +1,1546 @@
+
 <!DOCTYPE html>
-<!--[if IE 8 ]><html class="no-js oldie ie8" lang="en"> <![endif]-->
-<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="fr">
 <head>
-
-   <!--- basic page needs
-   ================================================== -->
-   <meta charset="utf-8">
-	<title>KAB - Portfolio</title>
-	<meta name="description" content="">  
-	<meta name="author" content="">
-
-   <!-- mobile specific metas
-   ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
- 	<!-- CSS
-   ================================================== -->
-   <link rel="stylesheet" href="css/base.css">  
-   <link rel="stylesheet" href="css/main.css">
-   <link rel="stylesheet" href="css/vendor.css">     
-
-   <!-- script
-   ================================================== -->   
-	<script src="js/modernizr.js"></script>
-	<script src="js/pace.min.js"></script>
-
-   <!-- favicons
-	================================================== -->
-	<link rel="icon" type="image/png" href="favicon.png">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAB - Portfolio</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #FF0077;
+            --dark-color: #151515;
+            --light-color: #FFFFFF;
+            --gray-color: #6e6e6e;
+            --section-padding: 100px 0;
+        }
+        
+        /* Intro Animation */
+        #intro-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--dark-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 1s ease-in-out 2s forwards;
+        }
+        
+        .intro-content-animation {
+            text-align: center;
+            color: var(--light-color);
+        }
+        
+        .intro-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: slideInDown 1s ease-out 0.5s forwards;
+            color: var(--primary-color); /* KAB en rose */
+        }
+        
+        .intro-text {
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: slideInUp 1s ease-out 1s forwards;
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        body {
+            font-family: 'Lora', serif;
+            color: var(--gray-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: #313131;
+            margin-bottom: 1.5rem;
+        }
+        
+        a {
+            color: #000;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Header */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--light-color) !important;
+        }
+        
+        .navbar-nav .nav-link {
+            color: var(--light-color) !important;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+        
+        /* Intro Section */
+        #intro {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80') no-repeat center center;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: var(--light-color);
+            text-align: center;
+        }
+        
+        .intro-content h1 {
+            font-size: 4rem;
+            color: var(--light-color);
+            margin-bottom: 1rem;
+        }
+        
+        .intro-content h5 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            letter-spacing: 3px;
+        }
+        
+        .intro-position {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .intro-position span {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        
+        .btn-primary {
+            background-color: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: var(--light-color);
+            padding: 12px 30px;
+            border-radius: 0;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .intro-social {
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            right: 0;
+        }
+        
+        .intro-social a {
+            color: var(--light-color);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .intro-social a:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        /* Section Styling */
+        section {
+            padding: var(--section-padding);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h5 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+        
+        .section-title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .section-title p.lead {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* About Section */
+        #about {
+            background-color: var(--light-color);
+        }
+        
+        .skill-bar {
+            margin-bottom: 25px;
+        }
+        
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .skill-name {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+        
+        .skill-percentage {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .skill-progress {
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 4px;
+            width: 0;
+            transition: width 2s ease-in-out;
+        }
+        
+        /* Resume Section */
+        #resume {
+            background-color: #f8f9fa;
+        }
+        
+        .resume-timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--light-color);
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--light-color);
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        
+        /* Portfolio Section */
+        #portfolio {
+            background-color: var(--light-color);
+        }
+        
+        .portfolio-item {
+            margin-bottom: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .portfolio-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background-color: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .portfolio-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), #ff66a3);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-icon i {
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-icon {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 0, 119, 0.2);
+        }
+        
+        .portfolio-item:hover .portfolio-icon::before {
+            opacity: 1;
+        }
+        
+        .portfolio-item:hover .portfolio-icon i {
+            color: white;
+            transform: scale(1.2);
+        }
+        
+        .portfolio-item h3 {
+            margin-bottom: 15px;
+        }
+        
+        /* Modal Styles */
+        .portfolio-modal .modal-content {
+            border-radius: 10px;
+            border: none;
+        }
+        
+        .portfolio-modal .modal-header {
+            border-bottom: 1px solid #e9ecef;
+            padding: 20px 30px;
+        }
+        
+        .portfolio-modal .modal-body {
+            padding: 30px;
+        }
+        
+        .portfolio-modal .modal-title {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .portfolio-work-item {
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+        
+        .portfolio-work-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .portfolio-work-content {
+            padding: 20px;
+        }
+        
+        .portfolio-work-item h5 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .portfolio-work-item p {
+            margin-bottom: 0;
+        }
+        
+        /* Portfolio Grid in Modals */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        /* Services Section */
+        #services {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center;
+            background-size: cover;
+            color: var(--light-color);
+        }
+        
+        #services .section-title h1,
+        #services .section-title p {
+            color: var(--light-color);
+        }
+        
+        .service-item {
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .service-item:hover {
+            transform: translateY(-10px);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .service-item h3 {
+            color: var(--light-color);
+            margin-bottom: 15px;
+        }
+        
+        /* Contact Section */
+        #contact {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+        }
+        
+        #contact .section-title h1,
+        #contact .section-title p {
+            color: var(--light-color);
+        }
+        
+        .contact-info-item {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .contact-info-item h5 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #111;
+            color: var(--light-color);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-social a {
+            color: var(--light-color);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: #000;
+            color: var(--light-color);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .intro-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 21px;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
-
-<body id="top">
-
-	<!-- header 
-   ================================================== -->
-   <header>   	
-   	<div class="row">
-
-   		<div class="top-bar">
-   			<a class="menu-toggle" href="#"><span>Menu</span></a>
-
-	   		<div class="logo">
-		         <a href="index.html">KAB</a>
-		      </div>		      
-
-		   	<nav id="main-nav-wrap">
-					<ul class="main-navigation">
-						<li class="current"><a class="smoothscroll"  href="#intro" title="">Home</a></li>
-						<li><a class="smoothscroll"  href="#about" title="">About</a></li>
-						<li><a class="smoothscroll"  href="#resume" title="">Resume</a></li>
-						<li><a class="smoothscroll"  href="#portfolio" title="">Portfolio</a></li>
-						<li><a class="smoothscroll"  href="#services" title="">Services</a></li>					
-						<li><a class="smoothscroll"  href="#contact" title="">Contact</a></li>			
-					</ul>
-				</nav>    		
-   		</div> <!-- /top-bar --> 
-   		
-   	</div> <!-- /row --> 		
-   </header> <!-- /header -->
-
-	<!-- intro section
-   ================================================== -->
-   <section id="intro">   
-
-   	<div class="intro-overlay"></div>	
-
-   	<div class="intro-content">
-   		<div class="row">
-
-   			<div class="col-twelve">
-
-	   			<h5>Hello, World.</h5>
-	   			<h1>I'm Kheira Ahlem BOUCHENTOUF.</h1>
-
-	   			<p class="intro-position">
-	   				<span>Full-stack Developer</span>
-	   				<span>UI/UX Designer</span> 
-	   				<span>Graphic Designer</span> 
-	   			</p>
-
-	   			<a class="button stroke smoothscroll" href="#about" title="">More About Me</a>
-
-	   		</div>  
-   			
-   		</div>   		 		
-   	</div> <!-- /intro-content --> 
-
-   	  	
-
-   </section> <!-- /intro -->
-
-
-   <!-- about section
-   ================================================== -->
-   <section id="about">  
-
-   	<div class="row section-intro">
-   		<div class="col-twelve">
-
-   			<h5>About</h5>
-   			<h1>Let me introduce myself.</h1>
-
-   			<div class="intro-info">
-
-   				
-
-   				<p class="lead">Greetings! I'm Kheira Ahlem, a dynamic force in the tech and design space. Armed with a Master's degree in Data Information Systems, I'm not just a coder; I'm a storyteller weaving narratives through code and design. Join me on a journey where innovation meets aethetics creating digital experiences that leave a lasting impression.</p>
-   			</div>   			
-
-   		</div>   		
-   	</div> <!-- /section-intro -->
-
-   	<div class="row about-content">
-
-   		<div class="col-six tab-full">
-
-   			<h3>Profile</h3>
-   			<p>Exprienced Full Stack Developer and UI/UX Designer, seamlessly blending analytical thinking with creative fitnesse. Committed to crafting innovative, visually captivating digital solutions. </p>
-
-   			<ul class="info-list">
-   				<li>
-   					<strong>Fullname:</strong>
-   					<span>Kheira Ahlem BOUCHENTOUF</span>
-   				</li>
-   				<li>
-   					<strong>Birth Date:</strong>
-   					<span>September 04, 1996</span>
-   				</li>
-   				<li>
-   					<strong>Job:</strong>
-   					<span>computer engineer</span>
-   				</li>
-   				<li>
-   					<strong>Website:</strong>
-   					<span>#</span>
-   				</li>
-   				<li>
-   					<strong>Email:</strong>
-   					<span>ahlem.bf@outlook.fr</span>
-   				</li>
-
-   			</ul> <!-- /info-list -->
-
-   		</div>
-
-   		<div class="col-six tab-full">
-
-   			<h3>Skills</h3>
-   			<p>I'm a dedicated computer engineer with a fervent passion for web development and design. Eager to learn, I am known for my precision, speed,and dynamic approach toprojects. Resourceful and quick on my feet, I thrive in dynamic environments. With a keen ability to work under pressure, I bring a blend of curiosity,availability, and meticulous attention to detail to every task. 
-   			My problem-solving skills are complemented by a strong sense of organization and prioritization. I am adept at handling challenging situations and consistently deliver results with a focus on efficency. Let's collaborate and bring innovation tothe forefront of technology </p>
-
-				<ul class="skill-bars">
-				   <li>
-				   	<div class="progress percent95"><span>95%</span></div>
-				   	<strong>HTML5 - CSS3 - JS </strong>
-				   </li>
-				   <li>
-				   	<div class="progress percent90"><span>90%</span></div>
-				   	<strong>PHP - WORDPRESS</strong>
-				   </li>
-				   <li>
-				   	<div class="progress percent70"><span>70%</span></div>
-				   	<strong>WINDEV - JAVA - PYTHON</strong>
-				   </li>
-				   <li>
-				   	<div class="progress percent50"><span>50%</span></div>
-				   	<strong>ODOO -DIVALTO</strong>
-				   </li>
-				   <li>
-
-				   	<div class="progress percent75"><span>75%</span></div>
-				   	<strong>POSTGRESQL - MYSQL - ORACLE</strong>
-				   </li>
-
-				   <li>
-
-				   	<div class="progress percent75"><span>75%</span></div>
-				   	<strong>PHOTOSHOP - AI - AE - AP</strong>
-				   </li>
-
-				   <li>
-
-				   	<div class="progress percent65"><span>65%</span></div>
-				   	<strong>(UBUNTU - WINDOWS) SERVER</strong>
-				   </li>
-      
-				</ul> <!-- /skill-bars -->		
-
-   		</div>
-
-   	</div>
-
-   	<div class="row button-section">
-   		<div class="col-twelve">
-   			<a href="#contact" title="Hire Me" class="button stroke smoothscroll">Hire Me</a>
-   			<a href="cv.pdf" title="Download CV" class="button button-primary" target="_blank">Download CV</a>
-   		</div>   		
-   	</div>
-
-   </section> <!-- /process-->    
-
-
-   <!-- resume Section
-   ================================================== -->
-	<section id="resume" class="grey-section">
-
-		<div class="row section-intro">
-   		<div class="col-twelve">
-
-   			<h5>Resume</h5>
-   			<h1>More of my credentials.</h1>
-
-   			<p class="lead">In a short period, I've built valuable experience in the mentioned various fields that I would like to share with you.</p>
-
-   		</div>   		
-   	</div> <!-- /section-intro--> 
-
-   	<div class="row resume-timeline">
-
-   		<div class="col-twelve resume-header">
-
-   			<h2>Work Experience</h2>
-
-   		</div> <!-- /resume-header -->
-
-   		<div class="col-twelve">
-
-   			<div class="timeline-wrap">
-
-   				<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Engineer Computer scientist : Webmaster, Graphic Designer</h3>
-	   					<p>March 2023 - Present</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>Palais d'or shopping Center, Oran, Algeria</h4>
-	   					<p>Responsibilities include webmaster, web developer, Graphic design and help desk duties .</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-
-	   			<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>IT Specialist</h3>
-	   					<p>OCT 2022 - FEB 2023</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>PRODIS LLC, Oran, Algeria</h4>
-	   					<p></p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-
-	   			<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Graphic designer</h3>
-	   					<p>May 2022 - Jully 2022</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>FPO Promotion agency,Oran, Algeria</h4>
-	   					<p></p>
-	   				</div>
-	   			</div><!-- /timeline-block -->
-
-
-
-	   					<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Versatile Computer scientist : Webmaster, Graphic Designer</h3>
-	   					<p>Jan 2021 - Dec 2021</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>Palais d'or shopping Center, Oran, Algeria</h4>
-	   					<p>Responsibilities include webmaster, web developer, Graphic design and help desk duties .</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-	   			<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Computer science teacher</h3>
-	   					<p>JAN 2018 - June 2021</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>Faculty of Humanities ans Islamic Civilization, Oran, Algeria</h4>
-	   					<p>Part-time instructor.</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-	   					<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Intern:web Developer</h3>
-	   					<p>Nov 2019 - March 2020</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>Renault Automobile Factory, Oran, Algeria</h4>
-	   					<p>Developed web pages and workflows using K2 platorm.</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-
-	   					<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Software Developer</h3>
-	   					<p>April 2019 - May 2019</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>Davilda Event Hall, Arzew, Oran, Algeria</h4>
-	   					<p>Created an event room reservation software.</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-	   					<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Web pages Reproduction</h3>
-	   					<p>Dec 2018 - March 2019</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>University of Sciences and Technologies MB, Oran, Algeria</h4>
-	   					<p>Replicated webpage for the Mathematics and computer Science departement in Arabic.</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-	   					<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Web Dev Conference Presenter</h3>
-	   					<p>November 2018</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>Higher School of Biological Sciences, Oran, Algeria</h4>
-	   					<p>Presented a conference on web development.</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-	   					<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Website Creation</h3>
-	   					<p>Dec 2017 - March 2018</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>Faculty of Humanities ans Islamic Civilization, Oran, Algeria</h4>
-	   					<p>Developed the faculty's website.</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-
-
-   			</div> <!-- /timeline-wrap -->   			
-
-   		</div> <!-- /col-twelve -->
-   		
-   	</div> <!-- /resume-timeline -->
-
-   	<div class="row resume-timeline">
-
-   		<div class="col-twelve resume-header">
-
-   			<h2>Education</h2>
-
-   		</div> <!-- /resume-header -->
-
-   		<div class="col-twelve">
-
-   			<div class="timeline-wrap">
-
-   				<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-graduation-cap"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Master's Degree</h3>
-	   					<p>Sept 2018 - Oct 2020</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>Data and Informations System</h4>
-	   					<p>Faculty of Humanities ans Islamic Civilization, Oran, Algeria</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-
-	   			<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-graduation-cap"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Bachelor's degree </h3>
-	   					<p>Sept 2015 - June 2018</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>Computer System</h4>
-	   					<p>Faculty of Humanities ans Islamic Civilization, Oran, Algeria</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-
-	   			<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-graduation-cap"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Mathematics Baccalaureate</h3>
-	   					<p>Sept 2014 - June 2015</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>Meftahi Mohamed School, Sidi Bel Abbes, Algeria.</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-
-   			</div> <!-- /timeline-wrap -->   			
-
-   		</div> <!-- /col-twelve -->
-   		
-   	</div> <!-- /resume-timeline -->
-   	
-   	
-		
-	</section> <!-- /features -->
-
-
-	<!-- Portfolio Section
-   ================================================== -->
-	<section id="portfolio">
-
-		<div class="row section-intro">
-   		<div class="col-twelve">
-
-   			<h5>Portfolio</h5>
-   			<h1>Check Out Some of My Works.</h1>
-
-   			<p class="lead">I'm excited to share with you a glimpse into some of the various aspects of my work, highlighting the intricacies and dedication poured into each endeavor.</p>
-
-   		</div>   		
-   	</div> <!-- /section-intro--> 
-
-   	<div class="row portfolio-content">
-
-   		<div class="col-twelve">
-
-   			<!-- portfolio-wrapper -->
-	         <div id="folio-wrapper" class="block-1-2 block-mob-full stack">
-
-	         	<div class="bgrid folio-item">
-	               <div class="item-wrap">
-	               	<img src="images/portfolio/liberty.jpg" alt="Videos editing">
-	                  <a href="#modal-01" class="overlay">	                  	           
-	                     <div class="folio-item-table">
-	                     	<div class="folio-item-cell">
-		     					       <h3 class="folio-title">Videos editing</h3>	     					    
-		     					    	 <span class="folio-types">
-		     					       	  Graphic Design
-		     					       </span>
-		     					   </div>	                      	
-	                     </div>                    
-	                  </a>
-	               </div>	               
-	        		</div> <!-- /folio-item -->
-
-	        		<div class="bgrid folio-item">
-	               <div class="item-wrap">
-	               	<img src="images/portfolio/shutterbug.jpg" alt="Palais d'Or">
-	               	<a href="#modal-02" class="overlay">              		                  
-	                     <div class="folio-item-table">
-	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Projects for Palais d'Or</h3>	     					    
-		     					    	<span class="folio-types">
-		     					       	 Dev Websites 
-		     					      </span>		     		
-		     					   </div> 	                      	
-	                     </div>                    
-	                  </a>
-	               </div>
-	        		</div> <!-- /folio-item -->
-
-	            <div class="bgrid folio-item">
-	               <div class="item-wrap">
-	               	<img src="images/portfolio/clouds.jpg"alt="Création sites web<">
-	                  <a href="#modal-03" class="overlay">             		                  
-	                     <div class="folio-item-table">
-	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Dev website</h3>	     					    
-		     					    	<span class="folio-types">
-		     					       	  Dev E-learning
-		     					      </span>		     		
-		     					   </div> 	                      	
-	                     </div>                    
-	                  </a>
-	               </div>
-	        		</div> <!-- /folio-item -->
-
-	            <div class="bgrid folio-item">
-	               <div class="item-wrap">
-	               	<img src="images/portfolio/beetle.jpg" alt="Davilda">
-	                  <a href="#modal-04" class="overlay">                  	                 
-	                     <div class="folio-item-table">
-	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Davilda </h3>	     					    
-		     					    	<span class="folio-types">
-		     					       	  Software Dev
-		     					      </span>		     		
-		     					   </div>  	                      	
-	                     </div>                    
-	                  </a>
-	               </div>
-	        		</div> <!-- /folio-item -->     
-
-	        		<div class="bgrid folio-item">
-	               <div class="item-wrap">
-	               	<img src="images/portfolio/lighthouse.jpg" alt="Graphics Design">
-	                  <a href="#modal-05" class="overlay">             		                  
-	                     <div class="folio-item-table">
-	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Graphics Design</h3>	     					    
-		     					    	<span class="folio-types">
-		     					       	  
-		     					      </span>		     		
-		     					   </div> 	                      	
-	                     </div>                    
-	                  </a>
-	               </div>
-	        		</div> <!-- /folio-item -->
-
-	            <div class="bgrid folio-item">
-	               <div class="item-wrap">
-	               	<img src="images/portfolio/salad.jpg" alt="WharanMap">
-	                  <a href="#modal-06" class="overlay">
-	                     <div class="folio-item-table">
-	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">WharanMap</h3>	     					    
-		     					    	<span class="folio-types">
-		     					       	  Webmapping dev
-		     					      </span>		     		
-		     					   </div>	                      	
-	                     </div>                    
-	                  </a>
-	               </div>
-	        		</div> <!-- /folio-item -->   
-
-	            <!-- modal popups - begin
-	            ============================================================= -->
-	            <div id="modal-01" class="popup-modal slider mfp-hide">	
-
-				     	<div class="media">
-				     		<img src="images/portfolio/modals/m-liberty.jpg" alt="" />
-				     	</div>      	
-
-					   <div class="description-box">
-					      <h4>Videos editing</h4>		      
-					      <p> - Advertising video.</p>
-					      <p> - Social media video content.</p>
-
-					      <div class="categories">Graphic design</div>			               
-					   </div>
-
-			         <div class="link-box">
-			            
-					      <a href="#" class="popup-modal-dismiss">Close</a>
-			         </div>		      
-
-				   </div> <!-- /modal-01 -->
-
-				   <div id="modal-02" class="popup-modal slider mfp-hide">	
-
-				     	<div class="media">
-				     		<img src="images/portfolio/modals/m-shutterbug.jpg" alt="" />
-				     	</div>      	
-
-					   <div class="description-box">
-					      <h4>Projects for Palais d'Or</h4>		      
-					      <p>- E-commerce Web site : <a href="https://palaisdor.com/"> <b>Visit the website </b></a></p>
-					      <p>- Le Roi de la maison Web site : <a href="https://leroidelamaison.dz/"> <b>Visit the website </b></a></p>
-					      <p>- Palais d'Or Construction Web site: <a href="https://palaisdorconstruction.com//"> <b>Visit the website</b></a></p>
-
-					     		               
-					   </div>
-
-			         <div class="link-box">
-			          
-					      <a href="#" class="popup-modal-dismiss">Close</a>
-			         </div>		      
-
-				   </div> <!-- /modal-02 -->
-
-				   <div id="modal-03" class="popup-modal slider mfp-hide">	
-
-				     	<div class="media">
-				     		<img src="images/portfolio/modals/m-clouds.jpg" alt="" />
-				     		<img src="images/portfolio/modals/m-clouds2.jpg" alt="" />
-				     	</div>      	
-
-					   <div class="description-box">
-					      <h4>Web sites conception</h4>		      
-					      <p>- Web site for Faculty of Humanities ans Islamic Civilization</p>
-					      <p>- Replicated webpage for the Mathematics and computer Science departement in Arabic</p>
-					      	               
-					   </div>
-
-			         <div class="link-box">
-			           
-					      <a href="#" class="popup-modal-dismiss">Close</a>
-			         </div>		      
-
-				   </div> <!-- /modal-03 -->
-
-				   <div id="modal-04" class="popup-modal slider mfp-hide">	
-
-				     	<div class="media">
-				     		<img src="images/portfolio/modals/m-beetle.jpg" alt="" />
-				     	</div>      	
-
-					   <div class="description-box">
-					      <h4>Davilda</h4>		      
-					      <p>Software for event room reservation</p>
-
-					      <div class="categories">Software dev</div>			               
-					   </div>
-
-			         <div class="link-box">
-			           
-					      <a href="#" class="popup-modal-dismiss">Close</a>
-			         </div>		      
-
-				   </div> <!-- /modal-04 -->
-
-				   <div id="modal-05" class="popup-modal slider mfp-hide">	
-
-				     	<div class="media">
-				     		<img src="images/portfolio/modals/m-lighthouse.jpg" alt="" />
-				     	</div>      	
-
-					   <div class="description-box">
-					      <h4>Graphic design</h4>		      
-					      <p>- Logos</p>
-					      <p>- Flayer</p>
-					      <p>- Business Card</p>
-					      <p>- graphical charter</p>
-					      <p>- Social media postes</p>
-					      <p>- window dressing</p>
-
-					      			               
-					   </div>
-
-			         <div class="link-box">
-					      <a href="#" class="popup-modal-dismiss">Close</a>
-			         </div>		      
-
-				   </div> <!-- /modal-05 -->
-
-				   <div id="modal-06" class="popup-modal slider mfp-hide">	
-
-				     	<div class="media">
-				     		<img src="images/portfolio/modals/m-salad.jpg" alt="" />
-				     	</div>      	
-
-					   <div class="description-box">
-					      <h4>WharanMap</h4>		      
-					      <p>A webmapping for Wahran city for find easly their destinations and get suggestions for many places on the city</p>
-
-					      <div class="categories">Webmapping</div>			               
-					   </div>
-
-			         <div class="link-box">
-			            
-					      <a href="#" class="popup-modal-dismiss">Close</a>
-			         </div>		      
-
-				   </div> <!-- /modal-06 -->
-
-
-				   <!-- modal popups - end
-	            ============================================================= -->
-
-	         </div> <!-- /portfolio-wrapper --> 
-
-   		</div>  <!-- /twelve -->   
-
-   	</div> <!-- /portfolio-content --> 
-		
-	</section> <!-- /portfolio --> 
-
-
-
-
-	
-	<!-- services Section
-   ================================================== -->
-	<section id="services">
-
-		<div class="overlay"></div>
-
-		<div class="row section-intro">
-   		<div class="col-twelve">
-
-   			<h5>Services</h5>
-   			<h1>What Can I Do For You?</h1>
-
-   			<p class="lead">Grateful to present my services, I offer quality work tailored to save you time and elevate your brand. Let's collaborate for our success.</p>
-
-   		</div>   		
-   	</div> <!-- /section-intro -->
-
-   	<div class="row services-content">
-
-   		<div id="owl-slider" class="owl-carousel services-list">
-
-	      	<div class="service">	
-
-	      		<span class="icon"><i class="icon-earth"></i></span>            
-
-	            <div class="service-content">	
-
-	            	 <h3>Webdesign</h3>
-
-		            <p class="desc">Creating visually stunning and user-friendly websites tailored to your unique needs, ensuring that your website not only looks fantastic but also functions seamlessly across all devices. From sleek and modern designs to robust e-commerce platforms.
-	         		</p>
-	         		
-	         	</div> 	         	 
-
-				</div> <!-- /service -->
-
-				<div class="service">	
-
-					<span class="icon"><i class="icon-window"></i></span>                          
-
-	            <div class="service-content">	
-
-	            	<h3>Web Development</h3>  
-
-		            <p class="desc">Whether you need a simple informational site, a complex e-commerce platform, or a custom web application, it will be crafting on high-quality, responsive websites that perfectly reflect your brand and meet your business goals.
-	         		</p>
-
-	            </div>	                          
-
-			   </div> <!-- /service -->
-
-			   <div class="service">
-
-			   	<span class="icon"><i class="icon-paint-brush"></i></span>		            
-
-	            <div class="service-content">
-
-	            	<h3>Branding</h3>
-
-		            <p class="desc">We handle everything from logo design to business cards to graphic charts. We'll take care of all your needs to kickstart your business and achieve your goals.
-	        			</p> 
-
-	            </div> 	            	               
-
-			   </div> <!-- /service -->
-
-				<div class="service">
-
-					<span class="icon"><i class="icon-toggles"></i></span>	              
-
-	            <div class="service-content">
-
-	            	<h3>Software Development</h3>
-
-		            <p class="desc">Creating and developing custom software solutions tailored to meet your specific business needs. From initial concept to final deployment, Whether you need a mobile app, a web application, or a desktop software solution.
-	         		</p> 
-	         		
-	            </div>                
-
-				</div> <!-- /service -->
-
-			   <div class="service">
-
-			   	<span class="icon"><i class="icon-image"></i></span>	            
-
-	            <div class="service-content">
-
-	            	<h3>Graphics Design</h3>
-
-		            <p class="desc">here we will bring your visual concepts to life with creativity and precision, whether you need, digital illustrations, print materials, or anything in between, we've got you covered.
-	        			</p> 
-
-	            </div>	               
-
-			   </div> <!-- /service -->
-
-			   <div class="service">
-
-			   	<span class="icon"><i class="icon-chat"></i></span>	   	           
-
-	            <div class="service-content">
-
-	            	 <h3>Consultancy</h3>
-
-		            <p class="desc">Whatever your software-related challenges may be, we're here to provide solutions and unlock the full potential of your business. Let's pave the way for success together.
-	        			</p> 
-	        			
-	            </div>	               
-
-			   </div> <!-- /service -->
-
-	      </div> <!-- /services-list -->
-   		
-   	</div> <!-- /services-content -->
-		
-	</section> <!-- /services -->	
-
-
-
-	
-   <!-- contact
-   ================================================== -->
-	<section id="contact">
-
-		<div class="row section-intro">
-   		<div class="col-twelve">
-
-   			<h5>Contact</h5>
-   			<h1>I'd Love To Hear From You.</h1>
-
-   			<p class="lead">
-If you wish to inquire about our services or get in touch, please don't hesitate to reach out at any time. I'm here to assist you and would be pleased to hear from you.
-   		</div> 
-   	</div> <!-- /section-intro -->
-
-
-   	<div class="row contact-info">
-
-   		<div class="col-four tab-full">
-
-   			<div class="icon">
-   				<i class="icon-pin"></i>
-   			</div>
-
-   			<h5>Where to find me</h5>
-
-   			<p>
-            Hai Khmisti<br>
-             Oran, Algeria<br>
-            31000
-            </p>
-
-   		</div>
-
-   		<div class="col-four tab-full collapse">
-
-   			<div class="icon">
-   				<i class="icon-mail"></i>
-   			</div>
-
-   			<h5>Email Me At</h5>
-
-   			<p>ahlem.bf@outlook.fr<br>
-			   				     
-			   </p>
-
-   		</div>
-
-   		<div class="col-four tab-full">
-
-   			<div class="icon">
-   				<i class="icon-phone"></i>
-   			</div>
-
-   			<h5>Call Me At</h5>
-
-   			<p>
-			   	Mobile: (+213) 658 536 097<br>
-			     	
-			   </p>
-
-   		</div>
-   		
-   	</div> <!-- /contact-info -->
-		
-	</section> <!-- /contact -->
-
-
-   <!-- footer
-   ================================================== -->
-
-   <footer>
-     	<div class="row">
-
-     		<div class="col-six tab-full pull-right social">
-
-     			<ul class="footer-social">        
-			      <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-			      <li><a href="#"><i class="fa fa-behance"></i></a></li>
-			      <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-			      <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-			      <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-			   </ul> 
-	      		
-	      </div>
-
-      	<div class="col-eight tab-full">
-	      	<div class="copyright">
-		        	<span>© Copyright 2024 </span>         	
-		         </div>		                  
-	      	</div>
-
-	      	<div id="go-top">
-		         <a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
-		      </div>
-
-      	</div> <!-- /row -->     	
-   </footer>  
-
-   <div id="preloader"> 
-    	<div id="loader"></div>
-   </div> 
-
-   <!-- Java Script
-   ================================================== --> 
-   <script src="js/jquery-2.1.3.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/2.1.6/jquery.cycle2.min.js"></script>
-   <script src="js/plugins.js"></script>
-   <script src="js/main.js"></script>
-
+<body>
+    <!-- Intro Animation -->
+    <div id="intro-animation">
+        <div class="intro-content-animation">
+            <div class="intro-logo">KAB</div>
+            <div class="intro-text">Portfolio</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">KAB</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#intro">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resume">Resume</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Intro Section -->
+    <section id="intro">
+        <div class="container">
+            <div class="intro-content" data-aos="fade-up" data-aos-duration="1000">
+                <h5>Hello, World.</h5>
+                <h1>I'm Kheira Ahlem BOUCHENTOUF.</h1>
+                <p class="intro-position">
+                    <span>Full-stack Developer</span>
+                    <span>UI/UX Designer</span>
+                    <span>Graphic Designer</span>
+                </p>
+                <a href="#about" class="btn btn-primary">More About Me</a>
+            </div>
+            <div class="intro-social" data-aos="fade-up" data-aos-delay="500">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h5>About</h5>
+                <h1>Let me introduce myself.</h1>
+                <p class="lead">Greetings! I'm Kheira Ahlem, a dynamic force in the tech and design space. Armed with a Master's degree in Data Information Systems, I'm not just a coder; I'm a storyteller weaving narratives through code and design.</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h3>Profile</h3>
+                    <p>Experienced Full Stack Developer and UI/UX Designer, seamlessly blending analytical thinking with creative finesse. Committed to crafting innovative, visually captivating digital solutions.</p>
+                    
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <strong>Fullname:</strong>
+                            <span>Kheira Ahlem BOUCHENTOUF</span>
+                        </li>
+                        <li class="mb-2">
+                            <strong>Birth Date:</strong>
+                            <span>September 04, 1996</span>
+                        </li>
+                        <li class="mb-2">
+                            <strong>Job:</strong>
+                            <span>Computer Engineer</span>
+                        </li>
+                        <li class="mb-2">
+                            <strong>Website:</strong>
+                            <span>#</span>
+                        </li>
+                        <li class="mb-2">
+                            <strong>Email:</strong>
+                            <span>ahlem.bf@outlook.fr</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-6" data-aos="fade-left">
+                    <h3>Skills</h3>
+                    <p>I'm a dedicated computer engineer with a fervent passion for web development and design. Eager to learn, I am known for my precision, speed, and dynamic approach to projects.</p>
+                    
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span class="skill-name">HTML5 - CSS3 - JS</span>
+                            <span class="skill-percentage">95%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="95"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span class="skill-name">PHP - WORDPRESS</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="90"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span class="skill-name">LARAVEL</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="85"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span class="skill-name">REACT</span>
+                            <span class="skill-percentage">80%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="80"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span class="skill-name">NODE.JS</span>
+                            <span class="skill-percentage">75%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="75"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span class="skill-name">WINDEV - JAVA - PYTHON</span>
+                            <span class="skill-percentage">70%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="70"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span class="skill-name">ODOO - DIVALTO</span>
+                            <span class="skill-percentage">50%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="50"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span class="skill-name">POSTGRESQL - MYSQL - ORACLE</span>
+                            <span class="skill-percentage">75%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="75"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span class="skill-name">PHOTOSHOP - AI - AE - AP</span>
+                            <span class="skill-percentage">75%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="75"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span class="skill-name">(UBUNTU - WINDOWS) SERVER</span>
+                            <span class="skill-percentage">65%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" data-width="65"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="#contact" class="btn btn-primary me-3">Hire Me</a>
+                <a href="cv.pdf" class="btn btn-outline-dark" target="_blank">Download CV</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="grey-section">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h5>Resume</h5>
+                <h1>More of my credentials.</h1>
+                <p class="lead">In a short period, I've built valuable experience in the mentioned various fields that I would like to share with you.</p>
+            </div>
+            
+            <div class="resume-timeline">
+                <div class="timeline-header" data-aos="fade-up">
+                    <h2>Work Experience</h2>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item" data-aos="fade-right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">March 2023 - Present</div>
+                            <h3>Engineer Computer Scientist</h3>
+                            <h4>Palais d'or Shopping Center, Oran, Algeria</h4>
+                            <p>Responsibilities include webmaster, web developer, Graphic design and help desk duties.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">OCT 2022 - FEB 2023</div>
+                            <h3>IT Specialist</h3>
+                            <h4>PRODIS LLC, Oran, Algeria</h4>
+                            <p>IT support and system administration.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">May 2022 - July 2022</div>
+                            <h3>Graphic Designer</h3>
+                            <h4>FPO Promotion Agency, Oran, Algeria</h4>
+                            <p>Created visual concepts for marketing campaigns.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Jan 2021 - Dec 2021</div>
+                            <h3>Versatile Computer Scientist</h3>
+                            <h4>Palais d'or Shopping Center, Oran, Algeria</h4>
+                            <p>Responsibilities include webmaster, web developer, Graphic design and help desk duties.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">JAN 2018 - June 2021</div>
+                            <h3>Computer Science Teacher</h3>
+                            <h4>Faculty of Humanities and Islamic Civilization, Oran, Algeria</h4>
+                            <p>Part-time instructor.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Nov 2019 - March 2020</div>
+                            <h3>Intern: Web Developer</h3>
+                            <h4>Renault Automobile Factory, Oran, Algeria</h4>
+                            <p>Developed web pages and workflows using K2 platform.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">April 2019 - May 2019</div>
+                            <h3>Software Developer</h3>
+                            <h4>Davilda Event Hall, Arzew, Oran, Algeria</h4>
+                            <p>Created an event room reservation software.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Dec 2018 - March 2019</div>
+                            <h3>Web Pages Reproduction</h3>
+                            <h4>University of Sciences and Technologies MB, Oran, Algeria</h4>
+                            <p>Replicated webpage for the Mathematics and computer Science department in Arabic.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">November 2018</div>
+                            <h3>Web Dev Conference Presenter</h3>
+                            <h4>Higher School of Biological Sciences, Oran, Algeria</h4>
+                            <p>Presented a conference on web development.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Dec 2017 - March 2018</div>
+                            <h3>Website Creation</h3>
+                            <h4>Faculty of Humanities and Islamic Civilization, Oran, Algeria</h4>
+                            <p>Developed the faculty's website.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-header mt-5" data-aos="fade-up">
+                    <h2>Education</h2>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item" data-aos="fade-right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Sept 2018 - Oct 2020</div>
+                            <h3>Master's Degree</h3>
+                            <h4>Data and Information System</h4>
+                            <p>Faculty of Humanities and Islamic Civilization, Oran, Algeria</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Sept 2015 - June 2018</div>
+                            <h3>Bachelor's Degree</h3>
+                            <h4>Computer System</h4>
+                            <p>Faculty of Humanities and Islamic Civilization, Oran, Algeria</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Sept 2014 - June 2015</div>
+                            <h3>Mathematics Baccalaureate</h3>
+                            <h4>Meftahi Mohamed School, Sidi Bel Abbes, Algeria</h4>
+                            <p>High school diploma with focus on mathematics.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h5>Portfolio</h5>
+                <h1>Check Out Some of My Works.</h1>
+                <p class="lead">I'm excited to share with you a glimpse into some of the various aspects of my work, highlighting the intricacies and dedication poured into each endeavor.</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#videoModal">
+                        <div class="portfolio-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>Video Editing</h3>
+                        <p>Advertising videos and social media content creation.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#ecommerceModal">
+                        <div class="portfolio-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3>E-commerce Websites</h3>
+                        <p>Development of online shopping platforms.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#webdevModal">
+                        <div class="portfolio-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Web Development</h3>
+                        <p>Custom websites and web applications.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#softwareModal">
+                        <div class="portfolio-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>Software Development</h3>
+                        <p>Custom software solutions.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#graphicModal">
+                        <div class="portfolio-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>Graphic Design</h3>
+                        <p>Logos, flyers, business cards, and more.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
+                    <div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#webmapModal">
+                        <div class="portfolio-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h3>Web Mapping</h3>
+                        <p>Interactive maps for location services.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Modals -->
+    <!-- Video Editing Modal -->
+    <div class="modal fade portfolio-modal" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="videoModalLabel">Video Editing Projects</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="portfolio-grid">
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Video Editing" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Advertising Video</h5>
+                                <p>Created compelling advertising videos for various clients, focusing on brand storytelling and audience engagement.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Social Media Content" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Social Media Content</h5>
+                                <p>Produced engaging video content for social media platforms, optimized for different formats and audiences.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1128&q=80" alt="Corporate Videos" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Corporate Videos</h5>
+                                <p>Developed professional corporate videos for internal communications and external marketing.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- E-commerce Modal -->
+    <div class="modal fade portfolio-modal" id="ecommerceModal" tabindex="-1" aria-labelledby="ecommerceModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ecommerceModalLabel">E-commerce Projects</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="portfolio-grid">
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Palais d'Or E-commerce" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Palais d'Or E-commerce</h5>
+                                <p><a href="https://palaisdor.com/" target="_blank">Visit the website</a></p>
+                                <p>Developed a comprehensive e-commerce platform for Palais d'Or shopping center.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Le Roi de la Maison" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Le Roi de la Maison</h5>
+                                <p><a href="https://leroidelamaison.dz/" target="_blank">Visit the website</a></p>
+                                <p>Created an online store for home goods and furniture with advanced filtering and search capabilities.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Palais d'Or Construction" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Palais d'Or Construction</h5>
+                                <p><a href="https://palaisdorconstruction.com/" target="_blank">Visit the website</a></p>
+                                <p>Built a website for construction services with project portfolio and contact forms.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Web Development Modal -->
+    <div class="modal fade portfolio-modal" id="webdevModal" tabindex="-1" aria-labelledby="webdevModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="webdevModalLabel">Web Development Projects</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="portfolio-grid">
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Faculty Website" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Faculty Website</h5>
+                                <p>Developed the official website for the Faculty of Humanities and Islamic Civilization.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="E-learning Platform" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>E-learning Platform</h5>
+                                <p>Created an educational platform with course management and student progress tracking.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mathematics Department" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Mathematics Department Page</h5>
+                                <p>Replicated webpage for the Mathematics and Computer Science department in Arabic.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Software Development Modal -->
+    <div class="modal fade portfolio-modal" id="softwareModal" tabindex="-1" aria-labelledby="softwareModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="softwareModalLabel">Software Development Projects</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="portfolio-grid">
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Davilda Event Reservation" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Davilda Event Reservation</h5>
+                                <p>Created a comprehensive event room reservation software with calendar integration and payment processing.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1115&q=80" alt="K2 Platform Workflows" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>K2 Platform Workflows</h5>
+                                <p>Developed web pages and workflows using K2 platform for Renault Automobile Factory.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Custom Business Solutions" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Custom Business Solutions</h5>
+                                <p>Built tailored software solutions for various business needs using different technologies.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphic Design Modal -->
+    <div class="modal fade portfolio-modal" id="graphicModal" tabindex="-1" aria-labelledby="graphicModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="graphicModalLabel">Graphic Design Projects</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="portfolio-grid">
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1228&q=80" alt="Logo Design" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Logo Design</h5>
+                                <p>Created unique and memorable logos for various businesses and organizations.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1565688534245-05d6b5be184a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Marketing Materials" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Marketing Materials</h5>
+                                <p>Designed flyers, brochures, and business cards for promotional campaigns.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Brand Identity" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Brand Identity</h5>
+                                <p>Developed complete graphical charters including color schemes, typography, and visual guidelines.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Web Mapping Modal -->
+    <div class="modal fade portfolio-modal" id="webmapModal" tabindex="-1" aria-labelledby="webmapModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="webmapModalLabel">Web Mapping Projects</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="portfolio-grid">
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="WharanMap" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>WharanMap</h5>
+                                <p>A webmapping application for Wahran city to easily find destinations and get suggestions for various places in the city.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Interactive City Guide" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Interactive City Guide</h5>
+                                <p>Developed an interactive map with points of interest, routes, and location-based services.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-work-item">
+                            <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Location Services" class="portfolio-work-image">
+                            <div class="portfolio-work-content">
+                                <h5>Location Services</h5>
+                                <p>Created mapping solutions with advanced location search and routing capabilities.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h5>Services</h5>
+                <h1>What Can I Do For You?</h1>
+                <p class="lead">Grateful to present my services, I offer quality work tailored to save you time and elevate your brand. Let's collaborate for our success.</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>Web Design</h3>
+                        <p>Creating visually stunning and user-friendly websites tailored to your unique needs.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Web Development</h3>
+                        <p>Building responsive and functional websites that meet your business goals.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h3>Branding</h3>
+                        <p>Developing strong brand identities that resonate with your target audience.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <h3>Software Development</h3>
+                        <p>Creating custom software solutions tailored to your specific needs.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-pencil-alt"></i>
+                        </div>
+                        <h3>Graphic Design</h3>
+                        <p>Bringing your visual concepts to life with creativity and precision.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Consultancy</h3>
+                        <p>Providing expert advice to help you make informed technology decisions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h5>Contact</h5>
+                <h1>I'd Love To Hear From You.</h1>
+                <p class="lead">If you wish to inquire about our services or get in touch, please don't hesitate to reach out at any time. I'm here to assist you and would be pleased to hear from you.</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h5>Where to find me</h5>
+                        <p>Hai Khmisti<br>Oran, Algeria<br>31000</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h5>Email Me At</h5>
+                        <p>ahlem.bf@outlook.fr</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h5>Call Me At</h5>
+                        <p>Mobile: (+213) 658 536 097</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2024 KAB Portfolio. All rights reserved.</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Designed with <i class="fas fa-heart text-danger"></i> by Kheira Ahlem BOUCHENTOUF</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Animate skill bars on scroll
+        const skillBars = document.querySelectorAll('.skill-progress-bar');
+        
+        function animateSkillBars() {
+            skillBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                if (isElementInViewport(bar)) {
+                    bar.style.width = width + '%';
+                }
+            });
+        }
+        
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+        
+        window.addEventListener('scroll', animateSkillBars);
+        // Initial check on page load
+        animateSkillBars();
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                navbar.style.padding = '10px 0';
+            } else {
+                navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                navbar.style.padding = '15px 0';
+            }
+        });
+
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Portfolio item hover effects
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        portfolioItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
 </body>
-
 </html>
