@@ -621,7 +621,23 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+.portfolio-work-video {
+    width: 100%;   /* occupe toute la largeur du conteneur */
+    height: auto;  /* conserve le ratio vidéo */
+    max-height: 80vh; /* pour ne pas dépasser l’écran */
+    display: block;
+}
+.portfolio-work-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
 
+.portfolio-work-image:hover {
+    transform: scale(1.05);
+}
 @media (min-width: 769px) and (max-width: 1024px) {
     .portfolio-grid {
         grid-template-columns: repeat(2, 1fr);
